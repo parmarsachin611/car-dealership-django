@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Car Details{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <h3 class="my-4">{{ car.brand }}</h3>
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+
+            <div class="card mt-4">
+                <img class="card-img-top img-fluid" src="{{ car.picture.url }}" alt="">
+                <div class="card-body">
+                    <h3 class="card-title">{{ car.name }}</h3>
+                    <h4>&#8377; {{ car.price }}</h4>
+                    <p class="card-text">{{ car.description }}</p>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="testdriveBtn">
+                        Book a test drive
+                    </button>
+                    &nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#order" id="orderBtn">
+                        Order now
+                    </button>
+                </div>
+            </div>
+            <!-- /.card -->
+
+            <div class="card card-outline-secondary my-4">
+                <div class="card-header">
+                    Specification
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>
+                                Car type
+                            </td>
+                            <td>
+                                {{ car.car_make }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Fuel Type
+                            </td>
+                            <td>
+                                {{ car.fuel }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Seating capacity
+                            </td>
+                            <td>
+                                {{ car.seats }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Fuel Tank Capacity (litres)
+                            </td>
+                            <td>
+                                {{ car.tank_capacity }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Transmission type
+                            </td>
+                            <td>
+                                {{ car.transmission }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Gears
+                            </td>
+                            <td>
+                                {{ car.gears }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Engine displacement (cc)
+                            </td>
+                            <td>
+                                {{ car.engine_displacement }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Maximum power (PS)
+                            </td>
+                            <td>
+                                {{ car.power }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Dimensions (mm)
+                            </td>
+                            <td>
+                                {{ car.dimensions }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col-lg-9 -->
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Book a test drive</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="testdriveForm" class="form form-control" role="form" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="date-input">
+                            Date:
+                        </label>
+                        <div class="col-sm-10">
+                            <input id="date-input" class="datepicker" maxlength="30" name="date" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-success" id="regisBtn">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button id="testdriveClose" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="order">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Order the car?</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="orderForm" class="form form-control" role="form" action="{% url 'web:order' car.id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="address">
+                            Address:
+                        </label>
+                        <div class="col-sm-10">
+                            <textarea rows="4" cols="50" id="address" name="address"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-success" id="clickBtn">Order</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button id="orderClose" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block script %}
+<script src="{% static 'js2/bootstrap-datepicker.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'js2/additional-methods.js' %}" type="text/javascript"></script>
+
+<script>
+
+    var date = new Date();
+    date.setDate(date.getDate()-1);
+
+    $('.datepicker').datepicker({
+        format: "dd/mm/yyyy",
+        autoclose: true,
+        startDate: date
+    });
+
+
+    $("#testdriveForm").submit(function(e) {
+
+        var url = "{% url 'web:testdrive' car.id %}";
+        $.ajax({
+               type: "POST",
+               url: url,
+               data: $("#testdriveForm").serialize(),
+               success: function(data)
+               {
+                   alert(data);
+               }
+             });
+        $("#testdriveClose").trigger("click");
+        e.preventDefault();
+    });
+
+
+    $("#orderForm").submit(function(e) {
+
+        var url = "{% url 'web:order' car.id %}";
+        $.ajax({
+               type: "POST",
+               url: url,
+               data: $("#orderForm").serialize(),
+               success: function(data)
+               {
+                   alert(data);
+               }
+             });
+        $("#orderClose").trigger("click");
+        e.preventDefault();
+    });
+
+</script>
+
+{% endblock script %}

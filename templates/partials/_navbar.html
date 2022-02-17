@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'web:index' %}">CAR<span>DEAL</span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+      </button>
+
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a href="{% url 'web:index' %}" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="{% url 'web:about' %}" class="nav-link">About</a></li>
+          {% if user.is_authenticated %}
+            <li class="nav-item"><a href="{% url 'web:dashboard' %}" class="nav-link">Welcome {{ user.username }} (Dashboard)</a></li>
+          <li class="nav-item"><a href="{% url 'web:cars' %}" class="nav-link">Cars</a></li>
+          <li class="nav-item"><a href="{% url 'web:compare' %}" class="nav-link">Compare</a></li>
+            <li class="nav-item"><a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">Logout</a></li>
+            <form action="{% url 'web:logout' %}" method="POST" id="logout">
+              {% csrf_token %}
+              <input type="hidden">
+            </form>
+          {% else %}
+            <li class="nav-item"><a href="{% url 'web:login' %}" class="nav-link">Sign-in</a></li>
+            <li class="nav-item"><a href="{% url 'web:register' %}" class="nav-link">Sign-up</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!-- END nav -->

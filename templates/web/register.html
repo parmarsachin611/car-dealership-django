@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Register{% endblock title %}
+
+{% block content %}
+
+<section class="ftco-section ftco-no-pt bg-light">
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-md-12	featured-top">
+                <div class="row no-gutters">
+                      <div class="col-md-4 d-flex align-items-center">
+                          <form id="request" method="POST" action="{% url 'web:register' %}" style="width: 380px;" class=" request-form ftco-animate bg-primary">
+                            {% csrf_token %}
+                            <h2 class=" text-align-center">Sign-Up</h2>
+                            <div class="form-group">
+                                <!-- Alerts -->
+                                {% include 'partials/_alert.html' %}
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="label">First name</label>
+                                <input type="text" name="first_name" class="form-control" placeholder="First name">
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="label">Last name</label>
+                                <input type="text" name="last_name" class="form-control" placeholder="Last name">
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="label">Email</label>
+                                <input type="email" name="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="label">Username</label>
+                                <input type="text" name="username" class="form-control" placeholder="Username">
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="label">Password</label>
+                                <input type="password" name="password" class="form-control" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="label">Confirm Password</label>
+                                <input type="password" name="password2" class="form-control" placeholder="Confirm Password">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="submit" value="SIGN-UP" class="btn btn-secondary py-3 px-4">
+                            </div>
+                        </form>
+                      </div>
+                      <div class="col-md-8 d-flex align-items-center">
+                          <div class="services-wrap rounded-right w-100">
+                              <h3 class="heading-section mb-4">Better Way to Buy/Sell Your Perfect Cars</h3>
+                              <div class="row d-flex mb-4">
+                          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+                            <div class="services w-100 text-center">
+                              <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
+                              <div class="text w-100">
+                                <h3 class="heading mb-2">Choose Your Location</h3>
+                            </div>
+                            </div>      
+                          </div>
+                          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+                            <div class="services w-100 text-center">
+                              <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-handshake"></span></div>
+                              <div class="text w-100">
+                                <h3 class="heading mb-2">Select the Best Deal</h3>
+                              </div>
+                            </div>      
+                          </div>
+                          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+                            <div class="services w-100 text-center">
+                              <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-rent"></span></div>
+                              <div class="text w-100">
+                                <h3 class="heading mb-2">Reserve Your Car</h3>
+                              </div>
+                            </div>      
+                          </div>
+                        </div>
+                          </div>
+                      </div>
+                  </div>
+            </div>
+      </div>
+</section>
+
+{% endblock content %}

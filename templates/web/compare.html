@@ -1,0 +1,75 @@
+{% extends 'base.html' %} 
+
+{% load static %} 
+{% load bootstrap4 %}
+
+{% block title %}Car Compare{% endblock title %} 
+
+{% block content %}
+
+<section class="hero hero-page gray-bg padding-small">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-lg-9 order-2 order-lg-1">
+                <h1>Compare cars</h1>
+                <p class="lead text-muted">Specs of 2 cars, side by side</p>
+            </div>
+            <div class="col-lg-3 text-right order-1 order-lg-2">
+                <ul class="breadcrumb justify-content-lg-end">
+                    <li class="breadcrumb-item"><a href="{% url 'web:index' %}">Home</a></li>
+                    <li class="breadcrumb-item active">compare</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<main>
+    <div class="container">
+        <div class="row">
+            <!-- Select-->
+            <div class="products-grid col-xl-12 col-lg-12" style="text-align: center">
+                <form id="compareForm" class="form form-control" role="form" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_form form layout='horizontal'%}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-success" id="compareBtn">Compare</button>
+                    {% endbuttons %}
+                </form>
+            </div>
+        </div>
+            <!-- /Select end-->
+        <div class="row">
+            <!-- Grid -->
+            <div class="products-grid col-xl-12 col-lg-12 sidebar-left">
+                <div class="row grid" id="tablezone">
+                    <!-- item-->
+                </div>
+            </div>
+            <!-- / Grid End-->
+        </div>
+    </div>
+</main>
+
+{% endblock content %}
+
+{% block script %}
+
+<script src="{% static 'js2/bootstrap-select.min.js' %}" type="text/javascript"></script>
+    <script>
+        $("#compareForm").submit(function(e) {
+            var url = "{% url 'web:compare' %}";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#compareForm").serialize(),
+                success: function(data) {
+                    $('#cmpTable').remove();
+                    $('#tablezone').append(data);
+                }
+            });
+            e.preventDefault();
+        });
+    </script>
+
+
+{% endblock script %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}About{% endblock title %}
+
+{% block content %}
+
+<section class="ftco-section ftco-about">
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-md-6 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url({% static 'images/about.jpg' %});">
+            </div>
+            <div class="col-md-6 wrap-about ftco-animate">
+      <div class="heading-section heading-section-white pl-md-5">
+          <span class="subheading">About us</span>
+        <h2 class="mb-4">Welcome to CarDeal</h2>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae quia tempore dolore sequi libero eos quos ducimus, consequatur neque voluptate.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem ipsam accusantium necessitatibus ipsum quisquam aspernatur consequuntur cupiditate omnis ea, nisi dolores assumenda qui quos illo quaerat! Quae molestiae consequatur distinctio a totam architecto laborum itaque debitis velit esse dicta mollitia deleniti corrupti, quidem veritatis odit.</p>
+        <p><a href="#" class="btn btn-primary py-3 px-4">Search Car</a></p>
+      </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
